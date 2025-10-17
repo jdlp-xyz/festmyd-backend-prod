@@ -1,0 +1,18 @@
+# Archivos de entorno (usar variables en Coolify)
+.env
+.env.local
+.env.production.local
+
+# Logs
+logs
+*.log
+
+# Dependency directories
+node_modules/
+
+# Coverage directory
+coverage/
+
+# Temporary folders
+tmp/
+temp/

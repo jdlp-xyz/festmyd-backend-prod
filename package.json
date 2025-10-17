@@ -1,0 +1,22 @@
+{
+  "name": "ecw_eventos_backend",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/app.js",
+  "scripts": {
+    "start": "node dist/app.js"
+  },
+  "dependencies": {
+    "@directus/sdk": "^18.0.3",
+    "@react-pdf/renderer": "^4.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "nodemailer": "^7.0.5",
+    "pocketbase": "^0.26.1",
+    "qrcode": "^1.5.4",
+    "react": "^19.1.1",
+    "resend": "^4.6.0"
+  }
+}

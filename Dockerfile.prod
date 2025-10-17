@@ -1,0 +1,34 @@
+# Dockerfile para producción - Solo ejecuta código ya compilado
+FROM node:20-alpine
+
+# Instalar dumb-init para mejor manejo de señales
+RUN apk add --no-cache dumb-init
+
+# Crear usuario no-root para seguridad
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S backend -u 1001
+
+WORKDIR /app
+
+# Copiar package.json y package-lock.json
+COPY package*.json ./
+
+# Instalar solo dependencias de producción
+RUN npm ci --only=production && npm cache clean --force
+
+# Copiar código ya compilado
+COPY dist/ ./dist/
+
+# Cambiar ownership al usuario no-root
+RUN chown -R backend:nodejs /app
+USER backend
+
+# Exponer puerto
+EXPOSE 3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1
+
+# Comando de inicio
+CMD ["dumb-init", "node", "dist/app.js"]
